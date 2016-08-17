@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>3D转换</title>
+	<style>
+		.transform{
+			height: 300px;
+			border:1px solid #000;
+			perspective: 600px;
+		}
+		.moto,.roto{
+			width: 100px;
+			height: 100px;
+			margin:50px 200px 0 200px;
+			background: #58a;
+		}
+	</style>
+</head>
+<body>
+	<div class="transform">
+		<form>
+			<label><input type="radio" name="translate" checked>translateX</label>
+			<label><input type="radio" name="translate">translateY</label>
+			<label><input type="radio" name="translate">translateZ</label>
+		</form>
+		-500<input class="slide" type="range" min="-500" max="500" value="0" >500
+		<div class="moto"></div>
+	</div>
+	<div class="transform">
+		<form>
+			<label><input type="radio" name="rotate" checked>rotateX</label>
+			<label><input type="radio" name="rotate">rotateY</label>
+			<label><input type="radio" name="rotate">rotateZ</label>
+		</form>
+		-360<input class="slide2" type="range" min="-360" max="360" value="0" >360
+		<div class="roto"></div>
+	</div>
+	<script type="text/javascript">
+		var oInput = document.getElementsByName('translate');
+		var aInput = document.getElementsByName('rotate');
+		var oSlide = document.getElementsByClassName('slide')[0];
+		var oSlide2 = document.getElementsByClassName('slide2')[0];
+		var oMoto = document.getElementsByClassName('moto')[0];
+		var oRoto = document.getElementsByClassName('roto')[0];
+
+		oSlide.oninput = function(){
+			var value = this.value;
+			oMoto.innerHTML = value;
+			var index;
+			for(var i=0;i<3;i++){
+				if(oInput[i].checked){
+					index = i;
+					break;
+				}
+			}
+			switch(index){
+				case 0:
+					oMoto.style.transform = "translateX("+value+"px)";
+				break;
+				case 1:
+					oMoto.style.transform = "translateY("+value+"px)";
+				break;
+				case 2:
+					oMoto.style.transform = "translateZ("+value+"px)";
+				break;
+			}	
+		}
+
+		oSlide2.oninput = function(){
+			var value = this.value;
+			oRoto.innerHTML = value;
+			var index;
+			for(var i=0;i<3;i++){
+				if(aInput[i].checked){
+					index = i;
+					break;
+				}
+			}
+			switch(index){
+				case 0:
+					oRoto.style.transform = "rotateX("+value+"deg)";
+				break;
+				case 1:
+					oRoto.style.transform = "rotateY("+value+"deg)";
+				break;
+				case 2:
+					oRoto.style.transform = "rotateZ("+value+"deg)";
+				break;
+			}	
+		}
+	</script>
+</body>
+</html>
