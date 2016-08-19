@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>animation-fill-mode</title>
+	<style>
+		@keyframes move{
+			0% {transform: translateX(0);background: red;}
+			20% {transform: translateX(240);background: #655;}
+			80% {transform: translateX(450px);background: yellowgreen;}
+			100% {transform: translateX(500px);background: black;}
+		}
+		.div1{
+			padding: 20px;
+			border: 1px solid #000;
+		}
+		.div1>div{
+			width: 100px;
+			height: 100px;
+			border:1px solid #000;
+			/*background: #58a;*/
+			animation-name: move;
+			animation-duration:  5s;
+		}
+		.div1 div:nth-child(1){
+			animation-fill-mode: none;
+		}
+		.div1 div:nth-child(2){
+			animation-fill-mode: forwards;
+		}
+		.div1 div:nth-child(3){
+			animation-fill-mode: backwards;
+			animation-delay: 2s;
+		}
+		.div1 div:nth-child(4){
+			animation-fill-mode: both;
+		}
+	</style>
+</head>
+<body>
+	<div class="div1">
+		<div>none</div>
+		<div>forwards</div>
+		<div>backwards</div>
+		<div>both</div>
+	</div>
+	<pre>
+.div1 div:nth-child(1){
+	animation-fill-mode: none;
+}
+.div1 div:nth-child(2){
+	animation-fill-mode: forwards;
+}
+.div1 div:nth-child(3){
+	animation-fill-mode: backwards;
+	animation-delay: 2s;
+}
+.div1 div:nth-child(4){
+	animation-fill-mode: both;
+}
+	</pre>
+我们可以看到在各种属性的不同效果
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		div{
+			width: 100px;
+			height: 100px;
+			background: red;
+			transition: width 5s ease -3s 
+		}
+	</style>
+</head>
+<body>
+	<div></div>
+	<pre>
+div{
+	width: 100px;
+	height: 100px;
+	background: red;
+	transition: width 5s ease -3s 
+}		
+	</pre>
+	我们设置的宽度变化，动画运行5s，动画延迟-3s，每一秒输出一个1，可以看到加上一开始的1，我们总共有3个1，就是因为延迟了-3s，动画直接在第三秒运行，然后4，5，停止。
+	<script>
+		setTimeout(function(){
+			document.getElementsByTagName('div')[0].style.width = 200+'px';
+		},0);
+		var timer =setInterval(function(){
+			var width = window.getComputedStyle(document.getElementsByTagName('div')[0] , null)['width'];
+			console.log(width)
+			if(width === '200px'){
+				clearInterval(timer);
+			}
+			document.getElementsByTagName('div')[0].innerHTML+=1;
+		},1000)
+	</script>
+</body>
+</html>

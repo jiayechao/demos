@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>简单的过渡</title>
+	<style>
+		.div1{
+			width: 100px;
+			height: 200px;
+			background:#58a;
+			transition: width 2s linear 1s;
+		}
+		.div:hover{
+			width: 200px;
+		}
+		.div2{
+			padding: 20px;
+			border:1px solid #000;
+		}
+		.div2 div{
+			width: 100px;
+			height: 100px;
+			background: #58a;
+			transition-property: width;
+			transition-duration: 5s;
+		}
+		.div2:hover div{
+			width: 700px;
+		}
+		.div2 div:nth-child(1){
+			transition-timing-function: linear;
+		}
+		.div2 div:nth-child(2){
+			transition-timing-function: ease;
+		}
+		.div2 div:nth-child(3){
+			transition-timing-function: ease-in;
+		}
+		.div2 div:nth-child(4){
+			transition-timing-function: ease-out;
+		}
+		.div2 div:nth-child(5){
+			transition-timing-function: ease-in-out;
+		}
+	</style>
+</head>
+<body>
+	<div class="div1">停顿1s后，宽度开始线性过渡到200px</div>
+	下面是五种transition-timing-function的变化
+	<div class="div2">
+		<div>linear</div>
+		<div>ease</div>
+		<div>ease-in</div>
+		<div>ease-out</div>
+		<div>ease-in-out</div>
+	</div>
+</body>
+</html>

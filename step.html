@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		@keyframes color{
+			0% {background: red;}
+			50% {background: yellow}
+			100% {background: blue}
+		}
+		.div1{
+			width: 200px;
+			height: 200px;
+			animation: color 4s steps(2,start) infinite; 
+		}
+		.div2{
+			width: 200px;
+			height: 200px;
+			animation: color 4s steps(2,end) infinite; 
+		}
+	</style>
+</head>
+<body>
+	<div class="div1"></div>
+	<div class="div2"></div>
+	动画创建为
+	<pre>
+@keyframes color{
+	0% {background: red;}
+	50% {background: yellow}
+	100% {background: blue}
+}
+	</pre>
+	这里我设置.div1为
+	animation-timing-function:steps(2,start),
+	可以看到动画一开始就是red和yellow的中间色——橙色，也就是第一帧的第二部分的开始部分，然后依次是黄色，灰色，蓝色;
+	.div2为animation-timing-function:steps(2,end),可以看到动画一开始第一帧第一部分的开头——红色，也就是第一帧的第一部分的开始部分，然后依次是橙色，黄色，灰色
+</body>
+</html>
