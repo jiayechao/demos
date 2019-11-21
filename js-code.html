@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <style>
+    .container{
+      width: 100%;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+    .textarea{
+      width:100%;
+      height: 300px;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+    .btn-group{
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+    }
+    .view{
+      margin: 0 10px;
+      border: 1px solid #aaa;
+      height: 200px;
+      padding: 10px;
+      overflow: auto;
+    }
+  </style>
+  <title>Document</title>
+</head>
+<body>
+  <div class="container">
+    <textarea class="textarea" placeholder="请输入你的代码"></textarea>
+  </div>
+  <div class="btn-group">
+    <button class="reset">清空</button>
+    <button class="execute">执行</button>
+  </div>
+  <div class="view">
+
+  </div>
+  <script>
+    const textarea = document.querySelectorAll('.textarea')[0]
+    const executeBtn = document.querySelectorAll('.execute')[0]
+    const reset = document.querySelectorAll('.reset')[0]
+    const view = document.querySelectorAll('.view')[0]
+
+    // 写一个函数，替换函数体中的console.log(), 目前只能是log，后面再改
+    window.console.print = function(val) {
+      view.innerHTML += '> ' + val + '<br>'
+    }
+    window.console.log = function(val) {
+      view.innerHTML += '< ' + val + '<br>'
+    }
+    executeBtn.addEventListener('click', function() {
+      // 找到函数体
+      const value = textarea.value
+      // 执行函数
+      try {
+        console.print(value)
+        const result = eval(value)
+        console.log(result)
+      } catch(err) {
+        console.log(err)
+      }
+    }, false)
+    reset.addEventListener('click', function() {
+      view.innerHTML = ''
+    }, false)
+  </script>
+</body>
+</html>
