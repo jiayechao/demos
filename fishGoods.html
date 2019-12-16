@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+<style>
+#app{
+  margin-top:100px;
+}
+table{
+  border-collapse:collapse;
+}
+td,th{
+  padding:10px;
+  border: 1px solid #666;
+}
+</style>
+</head>
+<body>
+<div id="app">
+  <el-form ref="form" label-width="80px">
+    <el-form-item label="商品1">
+      <el-select style="width: 400px;" v-model="form[0].id" placeholder="请选择商品" clearable>
+        <el-option v-for="option in selector" :key="option.value" :label="option.name" :value="option.id"></el-option>
+        </el-select>
+    </el-form-item>
+    <el-form-item label="数量">
+      <el-input style="width: 400px;" v-model="form[0].num" placeholder="请填写数量" clearable></el-input>
+    </el-form-item>
+    <el-form-item label="商品2">
+      <el-select style="width: 400px;" v-model="form[1].id" placeholder="请选择商品" clearable>
+        <el-option v-for="option in selector" :key="option.value" :label="option.name" :value="option.id"></el-option>
+        </el-select>
+    </el-form-item>
+    <el-form-item label="数量">
+      <el-input style="width: 400px;" v-model="form[1].num" placeholder="请填写数量" clearable></el-input>
+    </el-form-item>
+    <el-form-item label="商品3">
+      <el-select style="width: 400px;" v-model="form[2].id" placeholder="请选择商品" clearable>
+        <el-option v-for="option in selector" :key="option.value" :label="option.name" :value="option.id"></el-option>
+        </el-select>
+    </el-form-item>
+    <el-form-item label="数量">
+      <el-input style="width: 400px;" v-model="form[2].num" placeholder="请填写数量" clearable></el-input>
+    </el-form-item>
+    <el-form-item>
+      <el-button type="primary" @click="onSubmit">确定</el-button>
+  </el-form-item>
+  </el-form>
+  <table>
+    <tr>
+      <th>NPC</th>
+      <th>商品</th>
+    </tr>
+    <tr v-for="(item,value) in result" :key="value">
+      <td>{{value}}</td>
+      <td>
+        <p v-for="p in item">
+        {{p}}
+        </p>
+      </td>
+    </tr>
+  </table>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/babel-standalone/6.26.0/babel.min.js"></script>
+<!-- 引入组件库 -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script>
+const goodsEnum = {
+  1: '粘滑的娜迦眼球',
+  2: '正在崩解的沙雕',
+  3: '超沉的石头',
+  4: '一堆臭糊',
+  5: '脉动的血石',
+  6: '甜美的海藻',
+  7: '一罐鱼脸',
+  8: '脏兮兮的袜子',
+  9: '养生鱼人午餐',
+  10: '邪教徒的小指头',
+  11: '未鉴定的物质',
+  12: '一代不可名状的物质',
+  13: '非常普通的黄油',
+  14: '幽魂的食物',
+  15: '唤引者的罗盘',
+  16: '胀气鱼',
+  17: '奇特的鱼人之角',
+  18: '超念的蜗牛',
+  19: '海巨人的拇指',
+  20: '魅力难挡的',
+}
+const saler1 = [
+  {
+    name: '穆勒格勒勒',
+    goods: [
+      {
+        id: 1,
+      },
+      {
+        id: 2,
+        needs: [  
+          {
+            id: 6,
+            num: 4
+          }
+        ]
+      },
+      {
+        id: 3,
+        needs: [  
+          {
+            id: 7,
+            num: 3
+          },
+          {
+            id: 12,
+            num: 3
+          }
+        ]
+      },
+      {
+        id: 4,
+        needs: [  
+          {
+            id: 13,
+            num: 2
+          }
+        ]
+      },
+      {
+        id: 5,
+        needs: [  
+          {
+            id: 19,
+            num: 8
+          },
+          {
+            id: 9,
+            num: 7
+          },
+        ]
+      }
+    ]
+  }
+]
+const saler2 = [
+  {
+    name: '胡勒格勒',
+    goods: [
+      {
+        id: 6,
+      },
+      {
+        id: 7,
+        needs: [  
+          {
+            id: 16,
+            num: 5
+          }
+        ]
+      },
+      {
+        id: 8,
+        needs: [  
+          {
+            id: 11,
+            num: 6
+          },
+          
+        ]
+      },
+      {
+        id: 9,
+        needs: [  
+          {
+            id: 17,
+            num: 5
+          },
+        ]
+      },
+      {
+        id: 10,
+        needs: [  
+          {
+            id: 4,
+            num: 4
+          },
+          {
+            id: 14,
+            num: 7
+          },
+        ]
+      }
+    ]
+  }
+]
+const saler3 = [
+  {
+    name: '弗勒格勒',
+    goods: [
+      {
+        id: 11,
+      },
+      {
+        id: 12,
+        needs: [  
+          {
+            id: 16,
+            num: 2
+          }
+        ]
+      },
+      {
+        id: 13,
+        needs: [  
+          {
+            id: 6,
+            num: 4
+          },
+        ]
+      },
+      {
+        id: 14,
+        needs: [  
+          {
+            id: 17,
+            num: 6
+          }
+        ]
+      },
+      {
+        id: 15,
+        needs: [  
+          {
+            id: 4,
+            num: 2
+          },
+          {
+            id: 3,
+            num: 9
+          },
+        ]
+      }
+    ]
+  }
+]
+const saler4 = [
+  {
+    name: '格姆格勒',
+    goods: [
+      {
+        id: 16,
+      },
+      {
+        id: 17,
+        needs: [  
+          {
+            id: 1,
+            num: 3
+          }
+        ]
+      },
+      {
+        id: 18,
+        needs: [  
+          {
+            id: 2,
+            num: 5
+          },
+        ]
+      },
+      {
+        id: 19,
+        needs: [  
+          {
+            id: 8,
+            num: 3
+          }
+        ]
+      },
+      {
+        id: 20,
+        needs: [  
+          {
+            id: 9,
+            num: 8
+          },
+          {
+            id: 14,
+            num: 4
+          },
+        ]
+      }
+    ]
+  }
+]
+
+const goods = [...saler1[0].goods, ...saler2[0].goods, ...saler3[0].goods, ...saler4[0].goods]
+const saler = function(id) {
+  if(id < 6) {
+    return '穆勒格勒勒'
+  }
+  if(id < 11) {
+    return '胡勒格勒'
+  }
+  if(id < 16) {
+    return '弗勒格勒'
+  }
+  if(id < 21) {
+    return '格姆格勒'
+  }
+}
+// 需要选择的选项
+const selector = goods.filter(item => {
+  // 蓝色或紫色品质的
+  const arr = [3,4,5,9,10,14,15,18,19,20]
+  if(arr.includes(item.id) ) {
+    item.name = goodsEnum[item.id]
+    return true
+  }
+})
+new Vue({
+  el: '#app',
+  data: {
+    goods,
+    selector,
+    form: [
+      {
+       id: '',
+       num: '' 
+      },
+      {
+        id: '',
+        num: ''
+      },
+      {
+        id: '',
+        num: ''
+      }
+    ],
+    result: {}
+  },
+  methods: {
+    youbuy(rest) {
+      for(let i = 0; i<rest.length; i++) {
+        const goodsItem = rest[i]
+        // 找到需要买的物品，看是否需要needs
+        const goods = JSON.parse(JSON.stringify(this.goods))
+        const selectGoods = goods.filter(i => {
+          return i.id == goodsItem.id
+        })[0]
+        if(selectGoods.needs) {
+          selectGoods.needs.forEach(item => {
+            if(!this.result[saler(item.id)]) {
+              this.$set(this.result, saler(item.id), [])
+            }
+            this.result[saler(item.id)].push(`${goodsEnum[item.id]} * ${item.num * goodsItem.num}`)
+            // needs的num要修改
+            item.num = item.num * goodsItem.num
+          })
+          return this.youbuy(selectGoods.needs)
+        }
+      }
+    },
+    onSubmit() {
+      this.result = {}
+      // 过滤空的
+      const form = this.form.filter((item) => item.id && item.num)
+      this.youbuy(form)
+    },
+  }
+})
+</script>
+</body>
+</html>
