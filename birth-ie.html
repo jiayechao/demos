@@ -20,23 +20,23 @@ td,th{
 <div id="app">
   <div class="block">
     <p class="demonstration">计算生日</p>
-    <input class="birth" placeholder="生日">
-    <input class="date" placeholder="日期">
+    <input id="birth" placeholder="生日">
+    <input id="date" placeholder="日期">
   </div>
-  <button style="margin-top: 20px" onClick="conputeResult()">计算</button>
-  <p class="result"></p>
+  <button id="button" style="margin-top: 20px" onClick="conputeResult()">计算</button>
+  <p id="result"></p>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script>
-var birth = document.querySelectorAll('.birth')[0]
-var date = document.querySelectorAll('.date')[0]
-var btn = document.querySelectorAll('button')[0]
-var p = document.querySelectorAll('.result')[0]
+var birth = document.getElementById('birth')
+var date = document.getElementById('date')
+var btn = document.getElementById('button')
+var p = document.getElementById('result')
 var result = ''
 
 function displayAge(birth, target) {
-  let months = target.diff(birth, 'months', true)
-  let birthSpan = {year: Math.floor(months/12), month: Math.floor(months)%12, day: Math.round((months%1)*target.daysInMonth(),0)}
+  var months = target.diff(birth, 'months', true)
+  var birthSpan = {year: Math.floor(months/12), month: Math.floor(months)%12, day: Math.round((months%1)*target.daysInMonth(),0)}
   // you can adjust below logic as your requirements by yourself
   if (birthSpan.year < 1 && birthSpan.month < 1) {
     return birthSpan.day + ' 天'
