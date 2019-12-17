@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+<style>
+#app{
+  margin-top:100px;
+}
+table{
+  border-collapse:collapse;
+}
+td,th{
+  padding:10px;
+  border: 1px solid #666;
+}
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="block">
+    <p class="demonstration">计算生日</p>
+    <el-date-picker
+      unlink-panels
+      v-model="value"
+      type="daterange"
+      range-separator="至"
+      start-placeholder="开始日期"
+      end-placeholder="结束日期">
+    </el-date-picker>
+  </div>
+  <el-button style="margin-top: 20px" type="primary" @click="submit">计算</el-button>
+  <p>{{result}}</p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/babel-standalone/6.26.0/babel.min.js"></script>
+<!-- 引入组件库 -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+<script>
+new Vue({
+  el: '#app',
+  data: {
+    value: [],
+    result: ''
+  },
+  methods: {
+    displayAge(birth, target) {
+      let months = target.diff(birth, 'months', true)
+      let birthSpan = {year: Math.floor(months/12), month: Math.floor(months)%12, day: Math.round((months%1)*target.daysInMonth(),0)}
+      // you can adjust below logic as your requirements by yourself
+      if (birthSpan.year < 1 && birthSpan.month < 1) {
+        return birthSpan.day + ' 天' + (birthSpan.day > 1 ? 's' : '')
+      } else if (birthSpan.year < 1) {
+        return birthSpan.month + ' 月' + (birthSpan.month > 1 ? 's ' : ' ') + birthSpan.day + ' 天' + (birthSpan.day > 1 ? 's ' : '')
+      } else if (birthSpan.year < 2) {
+        return birthSpan.year + ' 年' + (birthSpan.year > 1 ? 's ' : ' ') + birthSpan.month + ' 月 ' + (birthSpan.month > 1 ? 's ' : '') + birthSpan.day + ' 天' + (birthSpan.day > 1 ? 's ' : '')
+      } else {
+        return birthSpan.year + ' 年' + (birthSpan.year > 1 ? 's ' : '')+ birthSpan.month + ' 月' + (birthSpan.month > 1 ? 's ' : '') + birthSpan.day + ' 天' + (birthSpan.day > 1 ? 's ' : '')
+      }
+    },
+    submit() {
+      if(this.value.length !== 2) {
+        return
+      }
+      var t = this.displayAge(moment(this.value[0]), moment(this.value[1]))
+      this.result = t
+    },
+  }
+})
+</script>
+</body>
+</html>
