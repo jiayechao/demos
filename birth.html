@@ -49,13 +49,11 @@ new Vue({
       let birthSpan = {year: Math.floor(months/12), month: Math.floor(months)%12, day: Math.round((months%1)*target.daysInMonth(),0)}
       // you can adjust below logic as your requirements by yourself
       if (birthSpan.year < 1 && birthSpan.month < 1) {
-        return birthSpan.day + ' 天' + (birthSpan.day > 1 ? 's' : '')
+        return birthSpan.day + ' 天'
       } else if (birthSpan.year < 1) {
-        return birthSpan.month + ' 月' + (birthSpan.month > 1 ? 's ' : ' ') + birthSpan.day + ' 天' + (birthSpan.day > 1 ? 's ' : '')
-      } else if (birthSpan.year < 2) {
-        return birthSpan.year + ' 年' + (birthSpan.year > 1 ? 's ' : ' ') + birthSpan.month + ' 月 ' + (birthSpan.month > 1 ? 's ' : '') + birthSpan.day + ' 天' + (birthSpan.day > 1 ? 's ' : '')
+        return birthSpan.month + ' 月 ' + birthSpan.day + ' 天'
       } else {
-        return birthSpan.year + ' 年' + (birthSpan.year > 1 ? 's ' : '')+ birthSpan.month + ' 月' + (birthSpan.month > 1 ? 's ' : '') + birthSpan.day + ' 天' + (birthSpan.day > 1 ? 's ' : '')
+        return birthSpan.year + ' 年 ' + birthSpan.month + ' 月 '  + birthSpan.day + ' 天'
       }
     },
     submit() {
